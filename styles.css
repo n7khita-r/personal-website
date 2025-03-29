@@ -1,0 +1,85 @@
+/* General styles */
+body {
+  font-family: 'Pacifico', 'Arial', sans-serif;
+  background-color: #d9ecec; /* Darker mint */
+  margin: 0;
+  padding: 0;
+}
+
+/* About section */
+#about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Profile image */
+#about img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 20px;
+  border: 3px solid #ff99cc;
+}
+
+/* Heading */
+#about h2 {
+  font-size: 2.5rem;
+  color: #ff69b4;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Paragraph */
+.text-content p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+/* Button */
+.text-content li {
+  list-style: none;
+}
+
+.text-content li a {
+  display: inline-block;
+  padding: 10px 30px;
+  background-color: #ff99cc;
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.text-content li a:hover {
+  background-color: #ff69b4;
+  transform: scale(1.05);
+}
+
+/* Desktop layout */
+@media (min-width: 768px) {
+  .content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 40px; /* Space between text and image */
+    max-width: 900px;
+  }
+
+  .text-content {
+    flex: 1;
+    text-align: left;
+  }
+
+  #about img {
+    margin-left: 20px; /* Space between text and image */
+  }
+}
+

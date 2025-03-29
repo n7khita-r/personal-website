@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+
+    <style>
+        /* Center everything */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #0d0d0d;
+            font-family: 'Orbitron', sans-serif;
+            color: white;
+        }
+
+        /* Loading container */
+        #loading-container {
+            text-align: center;
+        }
+
+
+        /* Progress bar container */
+        #progress-bar {
+            width: 320px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Progress fill */
+        #progress-fill {
+            height: 100%;
+            width: 0%;
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 1.2rem;
+            color: #ff69b4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+	    background: linear-gradient(90deg, #9B2242, #FF99CC);
+            border-radius: 25px;
+            transition: width 3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div id="loading-container">
+
+        <!-- Progress Bar -->
+        <div id="progress-bar">
+            <div id="progress-fill">♦ ♦ ♦ ♦ ♦ ♦ ♦ ♦ ♦</div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Faster Progress Bar -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const progressFill = document.getElementById("progress-fill");
+
+            progressFill.style.width = "100%"; // Fill bar in 3 seconds
+
+            setTimeout(() => {
+                window.location.href = "site4.html"; // Redirect after 3.5 seconds
+            }, 3500);
+        });
+    </script>
+
+</body>
+</html>

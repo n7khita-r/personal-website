@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikhita's Website</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS (Animate On Scroll) -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Share Tech Mono', 'Arial', sans-serif;
+            background-color: #0d0d0d;
+            margin: 0;
+            padding: 0;
+        }
+
+        #about {
+            text-align: center;
+            padding: 50px;
+            max-width: 900px;
+            margin: 50px auto;
+            background-color: #1a1a1a;
+		box-shadow: 0px 4px 10px rgba(255, 133, 194, 0.8);
+            border-radius: 20px;
+        }
+
+        #about h2 {
+	    font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: #9b2242;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+    .typing-container {
+        font-size: 2.5rem;
+        color: #9b2242;
+        font-weight: bold;
+        display: inline-block;
+        border-right: 3px solid #9b2242; /* Cursor effect */
+        white-space: nowrap;
+        overflow: hidden;
+        width: 0;
+        animation: typing 3s steps(30, end) forwards, blink 0.7s infinite;
+    }
+
+    /* Typing animation */
+    @keyframes typing {
+        from {
+            width: 0;
+        }
+        to {
+            width: 64%;
+        }
+    }
+
+    /* Blinking cursor effect */
+    @keyframes blink {
+        50% {
+            border-color: transparent;
+        }
+    }
+
+        #about img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 3px solid #9b2242;
+        }
+
+        .text-content p {
+            font-size: 1.1rem;
+            color: #ff85c2;
+            margin-bottom: 30px;
+        }
+
+        .text-content a {
+            display: inline-block;
+            padding: 10px 30px;
+            background-color: #9b2242;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .text-content a:hover {
+            background-color: #ff69b4;
+            transform: scale(1.05);
+        }
+
+        /* Marquee Container */
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            background-color: #0d0d0d;
+            border: 3px dashed #ff85c2;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+
+        /* Marquee Content */
+        .marquee-content {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 15s linear infinite;
+            color: #ff85c2;
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding-left: 100%;
+        }
+
+        /* Marquee Animation */
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px auto;
+            max-width: 1300px;
+            flex-wrap: wrap; /* Added to ensure responsiveness */
+        }
+        .nav-box {
+            flex: 1;
+            padding: 20px;
+            background-color: #1a1a1a;
+	box-shadow: 0px 4px 10px rgba(255, 133, 194, 0.8);
+            color: white;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+            min-width: 150px; /* Ensures boxes don't get too small */
+        }
+        .nav-box p {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            font-weight: normal;
+            color: #c02f4f;
+        }
+        .nav-button {
+            display: inline-block;
+            background-color: white;
+            color: #28202f;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        .nav-button:hover {
+            transform: scale(1.1);
+            background-color: #ff85c2;
+        }
+
+        /* Sidebar Styles */
+        #sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #c02f4f;
+            color: white;
+            padding: 20px;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 1000;
+        }
+        
+        #sidebar.active {
+            transform: translateX(0);
+        }
+        
+        #sidebarToggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #c02f4f;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        #sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 30px;
+        }
+	
+	#sidebar h2 {
+		margin-top: 40px;
+	}
+        
+        #sidebar ul li {
+            margin-bottom: 15px;
+        }
+        
+        #sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.2s ease;
+        }
+        
+        #sidebar ul li a:hover {
+            color: #ffdde4;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Sidebar Toggle Button -->
+    <button id="sidebarToggle" class="fixed top-5 left-5 bg-pink-500 text-white px-4 py-2 rounded-lg z-50">
+        ☰
+    </button>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <h2 class="text-xl font-bold mb-5">Navigation</h2>
+        <ul class="space-y-3">
+            <li><a href="about.html">About me</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="cv.pdf">Resume</a></li>
+            <li><a href="contact.html">Educational Background</a></li>
+        </ul>
+    </div>
+    
+    <!-- About Section -->
+    <section id="about" data-aos="fade-up">
+        <h2 class="typing-container">✧ Nikhita Anjani Ravi ✧</h2>
+        <div class="content d-flex flex-column flex-md-row align-items-center">
+            <div class="text-content me-md-4">
+                <p>
+                    Hello! I am Nikhita, a first-year undergraduate research student at IIIT Hyderabad pursuing a dual degree in Computational Linguistics. I am passionate about artificial intelligence, linguistics, mathematics, frontend development and algorithmic programming. My hobbies include design, video editing, photography and dance. 
+                </p>
+                <a href="#">Read More!</a>
+            </div>
+            <img src="profile.jpeg" alt="Profile Picture">
+        </div>
+    </section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let heading = document.querySelector(".typing-container");
+        heading.style.animation = "none"; // Reset animation
+        setTimeout(() => {
+            heading.style.animation = "typing 3s steps(30, end) forwards, blink 0.7s infinite";
+        }, 100);
+    });
+</script>
+
+
+    <div class="marquee-container" data-aos="fade-down">
+        <div class="marquee-content">
+            CLICK ON ANY OF THESE TO NAVIGATE FURTHER! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CLICK ON ANY OF THESE TO NAVIGATE FURTHER! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CLICK ON ANY OF THESE TO NAVIGATE FURTHER! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
+
+    <!-- Navigation Boxes -->
+    <div class="nav-container">
+        <div class="nav-box" data-aos="fade-up" data-aos-delay="100">
+            <a href="projects.html" class="nav-button">Educational Background</a>
+            <p>A look into my academic path from school to university, including my achievements, work experience and extra-curriculars along the way!</p>
+        </div>
+        <div class="nav-box" data-aos="fade-up" data-aos-delay="200">
+            <a href="skills.html" class="nav-button">Skills</a>
+            <p>Explore my technical skills and tools or frameworks I am familiar with.</p>
+        </div>
+        <div class="nav-box" data-aos="fade-up" data-aos-delay="300">
+            <a href="projects.html" class="nav-button">Projects</a>
+            <p>A space for my completed and future projects in web development, AI-ML, computational linguistics, NLP and beyond. Stay tuned!</p>
+        </div>
+        <div class="nav-box" data-aos="fade-up" data-aos-delay="400">
+            <a href="cv.pdf" class="nav-button">Resume</a>
+            <p>Download my CV to learn more about my education, skills, and experiences.</p>
+        </div>
+        <div class="nav-box" data-aos="fade-up" data-aos-delay="500">
+            <a href="contact.html" class="nav-button">Contact Me</a>
+            <p>Reach out to me via e-mail or social media!</p>
+        </div>
+    </div>
+    
+    <!-- Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS Initialization -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: false
+        });
+    </script>
+    
+    <!-- JavaScript for Sidebar Animation -->
+    <script>
+        const sidebar = document.getElementById("sidebar");
+        const toggleButton = document.getElementById("sidebarToggle");
+
+        toggleButton.addEventListener("click", () => {
+            sidebar.classList.toggle("active");
+        });
+    </script>
+</body>
+</html>
