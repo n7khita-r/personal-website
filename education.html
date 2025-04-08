@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education Timeline</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <style>
+        /* General Styles */
+        body {
+            background-color: #0d0d0d; /* Original Dark Mode */
+            color: white;
+            font-family: 'Share Tech Mono', sans-serif;
+            text-align: center;
+            padding: 50px 0;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-family: 'Orbitron', sans-serif;
+            color: #ff85c2; /* Original pink color */
+            margin-bottom: 50px;
+        }
+
+        /* Timeline Container */
+        .timeline {
+            position: relative;
+            width: 85%;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        /* Vertical Line - Now with rounded caps */
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 50px;
+            top: 10px; /* Start a bit lower to show rounded top */
+            width: 4px;
+            height: calc(100% - 20px); /* Adjust for rounded caps */
+            background-color: #ff85c2; /* Original pink color */
+            border-radius: 4px; /* Rounded edges for the line */
+        }
+
+        /* Add rounded caps to the line */
+        .timeline::after {
+            content: "";
+            position: absolute;
+            left: 50px;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background-color: transparent;
+            border-radius: 4px;
+            z-index: 1;
+            /* Add rounded caps using box shadow */
+            box-shadow: 0 0 0 4px #ff85c2 at top, 0 calc(100% - 4px) 0 4px #ff85c2;
+        }
+
+        /* Timeline Item */
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 70px; /* Increased spacing between items */
+            position: relative;
+        }
+
+        /* Circle (Checkpoint) - Better Centering */
+        .circle {
+            width: 24px; /* Slightly larger */
+            height: 24px; /* Slightly larger */
+            background-color: #f1accf; /* Original pink color */
+            border-radius: 50%;
+            position: absolute;
+            left: 50px; /* Aligned with the center of the line */
+            transform: translateX(-50%);
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 133, 194, 0.8);
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        /* Glowing Effect on Hover */
+        .timeline-item:hover .circle {
+            transform: translateX(-50%) scale(1.3);
+            box-shadow: 0 0 20px rgb(253, 220, 237);
+        }
+
+        /* Info Box - Now Larger */
+        .info-box {
+            background: #be3077; /* Original Pink Background */
+            padding: 20px; /* Increased padding */
+            border-radius: 12px; /* Slightly more rounded */
+            width: 80%; /* Increased width */
+            max-width: 550px; /* Increased max-width */
+            text-align: left;
+            font-size: 1.1rem; /* Slightly larger text */
+            transition: all 0.4s ease;
+            color: #ffe4f2; /* Original Light pink text */
+            display: flex;
+            align-items: flex-start;
+            opacity: 0.9;
+            box-shadow: 0px 4px 10px rgba(255, 133, 194, 0.3);
+            overflow: hidden;
+            position: relative;
+            margin-left: 90px; /* Fixed spacing from timeline */
+        }
+
+        /* Image Inside Info Box */
+        .info-box img {
+            width: 70px; /* Larger image */
+            height: 70px; /* Larger image */
+            border-radius: 50%;
+            margin-right: 18px; /* Slightly more spacing */
+            border: 2px solid white;
+            flex-shrink: 0;
+        }
+
+        /* Content container */
+        .info-content {
+            overflow: hidden;
+            flex-grow: 1;
+        }
+
+        /* Hidden expanded content */
+        .expanded-content {
+            height: 0;
+            overflow: hidden;
+            transition: height 0.3s ease, opacity 0.3s ease;
+            margin-top: 15px; /* More space before expansion */
+            opacity: 0;
+        }
+
+        /* Hover Effects for expansion */
+        .timeline-item:hover .info-box {
+            transform: translateX(10px);
+            opacity: 1;
+            box-shadow: 0px 6px 15px rgba(255, 133, 194, 0.5);
+            padding-bottom: 25px; /* More space at bottom when expanded */
+        }
+
+        .timeline-item:hover .expanded-content {
+            height: auto;
+            max-height: 300px; /* Adjust as needed */
+            opacity: 1;
+        }
+
+        /* Title styling */
+        .info-content h3 {
+            margin-top: 0;
+            margin-bottom: 12px; /* More space after title */
+            font-size: 1.3rem; /* Larger title */
+        }
+
+        /* Main paragraph */
+        .info-content p {
+            margin: 0;
+            line-height: 1.5; /* Better line spacing */
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .circle {
+                left: 30px;
+            }
+            
+            .info-box {
+                width: calc(100% - 70px);
+                margin-left: 60px;
+                padding: 15px;
+            }
+            
+            .info-box img {
+                width: 55px;
+                height: 55px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Sidebar Styles */
+        #sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #c02f4f;
+            color: white;
+            padding: 20px;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 1000;
+        }
+        
+        #sidebar.active {
+            transform: translateX(0);
+        }
+        
+        #sidebarToggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #c02f4f;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        #sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 30px;
+        }
+	
+	#sidebar h2 {
+		margin-top: 40px;
+	}
+        
+        #sidebar ul li {
+            margin-bottom: 15px;
+        }
+        
+        #sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.2s ease;
+        }
+        
+        #sidebar ul li a:hover {
+            color: #ffdde4;
+        }
+    </style>
+</head>
+<body>
+
+        <!-- Sidebar Toggle Button -->
+        <button id="sidebarToggle" class="fixed top-5 left-5 bg-pink-500 text-white px-4 py-2 rounded-lg z-50">
+            ☰
+        </button>
+    
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <h2 class="text-xl font-bold mb-5">Navigation</h2>
+            <ul class="space-y-3">
+                <li><a href="about.html">About me</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="skills.html">Skills</a></li>
+                <li><a href="cv.pdf">Resume</a></li>
+                <li><a href="education.html">Educational Background</a></li>
+            </ul>
+        </div>
+
+    <h1>Education Timeline</h1>
+
+    <div class="timeline">
+
+        <div class="timeline-item">
+            <div class="circle"></div>
+            <div class="info-box">
+                <img src="/api/placeholder/400/400" alt="High School">
+                <div class="info-content">
+                    <h3>10th Grade</h3>
+                    <p>Attended Loyola School, Bhubaneswar (2010-2022)</p>
+                    <div class="expanded-content">
+                        <p>• Grade: 98.8% </p>
+                        <p>• Achieved state rank in ICSE boards. </p>
+                        <p>• Participated and won in Model United Nations, Debate and Dance as extra-curriculars</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="circle"></div>
+            <div class="info-box">
+                <img src="/api/placeholder/400/400" alt="College">
+                <div class="info-content">
+                    <h3>12th Grade</h3>
+                    <p>Attended Mothers Public School, Bhubaneswar (2022-2024)</p>
+                    <div class="expanded-content">
+                        <p>• Grade: 96.2% </p>
+                        <p>• Earned eligibility for seats in NITs, IITs, IIITs and BITS across India through multiple competitive exams. </p>
+                        <p>• Continued to participate in Model United Nations and Debate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="circle"></div>
+            <div class="info-box">
+                <img src="/api/placeholder/400/400" alt="Future">
+                <div class="info-content">
+                    <h3>University</h3>
+                    <p>Attended IIIT Hyderabad (2024-Present)</p>
+                    <div class="expanded-content">
+                        <p>• Pursuing Dual Degree in Computational Linguistics</p>
+                        <p>• Grade: 8.22</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const sidebar = document.getElementById("sidebar");
+        const toggleButton = document.getElementById("sidebarToggle");
+
+        toggleButton.addEventListener("click", () => {
+            sidebar.classList.toggle("active");
+        });
+    </script>
+
+</body>
+</html>

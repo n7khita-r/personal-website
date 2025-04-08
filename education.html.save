@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education Timeline</title>
+
+    <!-- Tailwind for quick styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+<!-- Google Fonts Import -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+    <style>
+        /* General Styles */
+        body {
+            background-color: #0d0d0d; /* Dark mode */
+            color: white;
+            font-family: 'Share Tech Mono', sans-serif;
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        h1 {
+            font-size: 7rem !important; 
+	    font-family: 'Orbitron', sans-serif;
+	    color: #ff85c2;
+            margin-bottom: 30px;
+        }
+
+        /* Timeline Container */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            position: relative;
+            width: 80%;
+            margin: auto;
+        }
+
+        /* Line connecting circles */
+        .timeline::before {
+            content: "";
+            position: absolute;
+            width: 4px;
+            background: #ff69b4;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Timeline Box (hidden initially) */
+        .timeline-box {
+            position: relative;
+            width: 250px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            margin: 30px 0;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            cursor: pointer;
+            opacity: 0.8;
+        }
+
+        /* Circle Checkpoints */
+        .timeline-circle {
+            width: 20px;
+            height: 20px;
+            background: #ff69b4;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Hover Effects */
+        .timeline-box:hover {
+            transform: translateX(20px) scale(1.1);
+            opacity: 1;
+            background: rgba(255, 105, 180, 0.2);
+            box-shadow: 0 0 15px #ff69b4;
+        }
+
+        .timeline-box:hover .timeline-circle {
+            transform: scale(1.5);
+            background: #ff99cc;
+        }
+
+        /* Expanded Info (hidden initially) */
+        .timeline-info {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, opacity 0.5s ease;
+            opacity: 0;
+            margin-top: 10px;
+        }
+
+        .timeline-box:hover .timeline-info {
+            max-height: 100px;
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Education Timeline</h1>
+
+    <div class="timeline">
+
+        <!-- School -->
+        <div class="timeline-box">
+            <div class="timeline-circle"></div>
+            <h2>High School</h2>
+            <p>Grade 10</p>
+            <div class="timeline-info">
+                <p>Completed high school with a strong foundation in mathematics, science, and computer programming.</p>
+            </div>
+        </div>
+
+        <!-- College -->
+        <div class="timeline-box">
+            <div class="timeline-circle"></div>
+            <h2>College</h2>
+            <p>Grade 12</p>
+            <div class="timeline-info">
+                <p>Studied advanced mathematics and computer science, developing a keen interest in AI and NLP.</p>
+            </div>
+        </div>
+
+        <!-- University -->
+        <div class="timeline-box">
+            <div class="timeline-circle"></div>
+            <h2>University</h2>
+            <p>IIIT Hyderabad</p>
+            <div class="timeline-info">
+                <p>Pursuing a dual degree in Computational Linguistics, focusing on AI, NLP, and deep learning.</p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

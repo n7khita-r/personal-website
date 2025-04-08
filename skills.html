@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Skills - Nikhita</title>
+  
+  <!-- Orbitron & Share Tech Mono Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+        /* Sidebar Styles */
+        #sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #c02f4f;
+            color: white;
+            padding: 20px;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 1000;
+        }
+        
+        #sidebar.active {
+            transform: translateX(0);
+        }
+        
+        #sidebarToggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #c02f4f;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        #sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 30px;
+        }
+	
+	#sidebar h2 {
+		margin-top: 40px;
+	}
+        
+        #sidebar ul li {
+            margin-bottom: 15px;
+        }
+        
+        #sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.2s ease;
+        }
+        
+        #sidebar ul li a:hover {
+            color: #ffdde4;
+        }
+    
+    body {
+      background-color: #0d0d0d;
+      font-family: 'Share Tech Mono', monospace;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      padding: 40px 0 20px;
+    }
+
+    h1 {
+      font-size: 4rem;
+      color: #cf7694;
+      margin: 0 0 20px;
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 10px rgba(207, 118, 148, 0.5);
+    }
+
+    .typing-container {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 2rem;
+      color: #85345c;
+      margin: 30px 0;
+      height: 50px;
+      overflow: hidden;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 30px;
+      background-color: #ff69b4;
+      animation: blink 0.8s infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .slider-section {
+      width: 100%;
+      background-color: rgba(26, 26, 26, 0.5);
+      padding: 40px 0;
+      margin: 30px 0;
+    }
+
+    .slider-container {
+      position: relative;
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+      overflow: hidden;
+      padding: 0 50px;
+    }
+
+    .slider {
+      display: flex;
+      transition: transform 0.5s ease;
+      gap: 30px;
+    }
+
+    .skill-box {
+      flex: 0 0 250px;
+      height: 250px;
+      background-color: #1a1a1a;
+      border: 3px solid #ff69b4;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px #ff69b480;
+      transition: all 0.3s ease;
+    }
+
+    .skill-box:hover {
+      box-shadow: 0 0 30px #ff69b4;
+    }
+
+    .skill-box img {
+      width: 150px;
+      height: auto;
+      max-width: 80%;
+      max-height: 80%;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 49.5%;
+      transform: translateY(-50%);
+      background-color: rgba(13, 13, 13, 0.7);
+      border: 2px solid #ff69b4;
+      color: #ff69b4;
+      font-size: 2rem;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 50%;
+      z-index: 10;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px #ff69b4;
+    }
+
+    .arrow:hover {
+      background-color: #ff69b4;
+      color: #0d0d0d;
+      box-shadow: 0 0 20px #ff85c2, 0 0 30px #ff69b4;
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 25px;
+      max-width: 1400px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .skill-card {
+      background-color: #913549;
+      padding: 25px 15px;
+      border-radius: 15px;
+      border: 2px solid #ff99cc33;
+      color: #fff;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px #ff99cc11;
+    }
+
+    .skill-card:hover {
+      transform: scale(1.07);
+      border-color: #ff99cc;
+      box-shadow: 0 0 15px #ff85c2;
+    }
+
+    footer {
+      margin-top: 50px;
+      padding: 20px;
+      background-color: rgba(26, 26, 26, 0.5);
+      border-top: 1px solid #ff69b433;
+    }
+
+    @media (max-width: 1200px) {
+      .skill-box {
+        flex: 0 0 220px;
+        height: 220px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 3rem;
+      }
+      
+      .skill-box {
+        flex: 0 0 200px;
+        height: 200px;
+      }
+      
+      .arrow {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      .skill-box {
+        flex: 0 0 150px;
+        height: 150px;
+      }
+      
+      .skills-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 15px;
+      }
+      
+      .skill-card {
+        font-size: 1rem;
+        padding: 15px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+     <!-- Sidebar Toggle Button -->
+     <button id="sidebarToggle" class="fixed top-5 left-5 bg-pink-500 text-white px-4 py-2 rounded-lg z-50">
+        ☰
+    </button>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <h2 class="text-xl font-bold mb-5">Navigation</h2>
+        <ul class="space-y-3">
+            <li><a href="about.html">About me</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="cv.pdf">Resume</a></li>
+            <li><a href="education.html">Educational Background</a></li>
+        </ul>
+    </div>
+    
+  <header>
+    <div class="container">
+      <h1>My Skills</h1>
+    </div>
+  </header>
+
+  <div class="typing-container">
+    <span id="typed-text"></span><span class="cursor">|</span>
+  </div>
+
+  <section class="slider-section">
+    <div class="slider-container">
+      <button class="arrow prev" onclick="moveSlide(-1)">&#10094;</button>
+      <div class="slider" id="slider">
+        <div class="skill-box"><img src="react-1.svg" alt="ReactJS"></div>
+        <div class="skill-box"><img src="images.png" alt="Git"></div>
+        <div class="skill-box"><img src="cpp.png" alt="C++"></div>
+        <div class="skill-box"><img src="fastapi.svg" alt="FastAPI"></div>
+        <div class="skill-box"><img src="js.png" alt="JavaScript"></div>
+        <div class="skill-box"><img src="sql.png" alt="SQL"></div>
+        <div class="skill-box"><img src="tailw.jpeg" alt="TailWind CSS"></div>
+        <div class="skill-box"><img src="py.png" alt="Python"></div>
+      </div>
+      <button class="arrow next" onclick="moveSlide(1)">&#10095;</button>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="skills-grid">
+      <div class="skill-card">HTML</div>
+      <div class="skill-card">CSS</div>
+      <div class="skill-card">JavaScript</div>
+      <div class="skill-card">Bootstrap</div>
+      <div class="skill-card">Tailwind CSS</div>
+      <div class="skill-card">React</div>
+      <div class="skill-card">Node.js</div>
+      <div class="skill-card">LSTMs and BiLSTMS</div>
+      <div class="skill-card">MongoDB</div>
+      <div class="skill-card">MySQL</div>
+      <div class="skill-card">FastAPI</div>
+      <div class="skill-card">Python</div>
+      <div class="skill-card">Java</div>
+      <div class="skill-card">C</div>
+      <div class="skill-card">C++</div>
+      <div class="skill-card">Git & GitHub</div>
+      <div class="skill-card">REST APIs</div>
+      <div class="skill-card">LaTeX</div>
+      <div class="skill-card">HMMs, CRFs</div>
+      <div class="skill-card">Linux</div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; Made with ♥ by Nikhita (2025)</p>
+    </div>
+  </footer>
+
+  <script>
+    // Slider functionality
+    let position = 0;
+    const slider = document.getElementById('slider');
+    let boxWidth;
+    let visibleBoxes;
+
+    // Responsive values
+    function updateSliderValues() {
+      const viewportWidth = window.innerWidth;
+      boxWidth = document.querySelector('.skill-box').offsetWidth + 30; // 30 for gap
+      
+      if (viewportWidth >= 1200) {
+        visibleBoxes = 4;
+      } else if (viewportWidth >= 768) {
+        visibleBoxes = 3;
+      } else if (viewportWidth >= 480) {
+        visibleBoxes = 2;
+      } else {
+        visibleBoxes = 1;
+      }
+    }
+
+    window.addEventListener('resize', updateSliderValues);
+    window.addEventListener('load', updateSliderValues);
+
+    function moveSlide(dir) {
+      updateSliderValues();
+      const boxCount = slider.children.length;
+      const maxPosition = Math.max(0, (boxCount - visibleBoxes) * boxWidth);
+      
+      position += dir * boxWidth;
+      position = Math.max(0, Math.min(position, maxPosition));
+      
+      slider.style.transform = `translateX(-${position}px)`;
+    }
+
+    // Typing effect
+    const typedTextSpan = document.getElementById("typed-text");
+    const cursorSpan = document.querySelector(".cursor");
+  
+    const textArray = ["MongoDB", "React", "NodeJS", "Python", "C++", "JavaScript", "FastAPI", "LaTeX"];
+    const typingDelay = 100;
+    const erasingDelay = 50;
+    const newTextDelay = 1000; // Delay between typing and erasing
+    let textArrayIndex = 0;
+    let charIndex = 0;
+  
+    function type() {
+      if (charIndex < textArray[textArrayIndex].length) {
+        typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(type, typingDelay);
+      } else {
+        setTimeout(erase, newTextDelay);
+      }
+    }
+  
+    function erase() {
+      if (charIndex > 0) {
+        typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(erase, erasingDelay);
+      } else {
+        textArrayIndex++;
+        if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+        setTimeout(type, typingDelay);
+      }
+    }
+  
+    // Start typing effect when page loads
+    document.addEventListener("DOMContentLoaded", () => {
+      if (textArray.length) setTimeout(type, newTextDelay + 250);
+    });
+  </script>
+
+<script>
+    const sidebar = document.getElementById("sidebar");
+    const toggleButton = document.getElementById("sidebarToggle");
+
+    toggleButton.addEventListener("click", () => {
+        sidebar.classList.toggle("active");
+    });
+</script>
+</body>
+</html>

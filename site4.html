@@ -54,6 +54,29 @@
         animation: typing 3s steps(30, end) forwards, blink 0.7s infinite;
     }
 
+.particle {
+    position: absolute;
+    background: rgba(255, 85, 194, 0.8); /* Neon Pink */
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 85, 194, 1), 
+                0 0 20px rgba(255, 85, 194, 0.8), 
+                0 0 30px rgba(255, 85, 194, 0.5);
+    pointer-events: none;
+    animation: fadeOut 1s ease-out forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+
     /* Typing animation */
     @keyframes typing {
         from {
@@ -247,7 +270,7 @@
             <li><a href="projects.html">Projects</a></li>
             <li><a href="skills.html">Skills</a></li>
             <li><a href="cv.pdf">Resume</a></li>
-            <li><a href="contact.html">Educational Background</a></li>
+            <li><a href="education.html">Educational Background</a></li>
         </ul>
     </div>
     
@@ -274,7 +297,29 @@
         }, 100);
     });
 </script>
+<script>
+document.addEventListener("mousemove", (e) => {
+    const particle = document.createElement("div");
+    particle.classList.add("particle");
 
+    document.body.appendChild(particle);
+
+    // Position the particle at the cursor
+    particle.style.left = `${e.clientX}px`;
+    particle.style.top = `${e.clientY}px`;
+
+    // Randomize size and animation duration
+    const size = Math.random() * 10 + 5;
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    particle.style.animationDuration = `${Math.random() * 1 + 0.5}s`;
+
+    // Remove particle after animation ends
+    setTimeout(() => {
+        particle.remove();
+    }, 1000);
+});
+</script>
 
     <div class="marquee-container" data-aos="fade-down">
         <div class="marquee-content">
@@ -285,7 +330,7 @@
     <!-- Navigation Boxes -->
     <div class="nav-container">
         <div class="nav-box" data-aos="fade-up" data-aos-delay="100">
-            <a href="projects.html" class="nav-button">Educational Background</a>
+            <a href="education.html" class="nav-button">Educational Background</a>
             <p>A look into my academic path from school to university, including my achievements, work experience and extra-curriculars along the way!</p>
         </div>
         <div class="nav-box" data-aos="fade-up" data-aos-delay="200">
