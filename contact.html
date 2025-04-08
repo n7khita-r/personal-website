@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contact Me</title>
+<style>
+body {
+  background-color: #0d0d0d;
+  font-family: 'Orbitron', sans-serif;
+  color: #944551;
+  text-align: center;
+  padding: 50px;
+}
+footer {
+      margin-top: 50px;
+      padding: 20px;
+      background-color: rgba(26, 26, 26, 0.5);
+      border-top: 1px solid #ff69b433;
+      color:white;
+      text-align: center;
+    }
+        /* Sidebar Styles */
+        #sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #c02f4f;
+            color: white;
+            padding: 20px;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 1000;
+        }
+        
+        #sidebar.active {
+            transform: translateX(0);
+        }
+        
+        #sidebarToggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #c02f4f;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        #sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 30px;
+        }
+	
+	#sidebar h2 {
+		margin-top: 40px;
+	}
+        
+        #sidebar ul li {
+            margin-bottom: 15px;
+        }
+        
+        #sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.2s ease;
+        }
+        
+        #sidebar ul li a:hover {
+            color: #ffdde4;
+        }
+h1 {
+  color: #a3376d;
+  font-size: 4rem;
+  margin-bottom: 2rem;
+  
+}
+.contact-icons {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+}
+.icon-box {
+  text-align: center;
+  transition: transform 0.3s ease;
+
+}
+.icon-box:hover {
+  transform: scale(1.15);
+  animation: none;
+}
+.icon-box a {
+  text-decoration: none;
+  animation: pulse 2s infinite;
+  color: #ffb6c1;
+}
+.icon-img {
+  font-size: 4rem;
+  color: #ff69b4;
+  text-shadow: 0 0 20px #ff85c2, 0 0 40px #ff85c2;
+  transition: color 0.3s, text-shadow 0.3s;
+  width: 64px;
+  height: 64px;
+  display: block;
+  margin: 0 auto;
+}
+.icon-box a:hover .icon-img {
+  filter: brightness(1.2);
+}
+.icon-label {
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+}
+.para-text {
+  margin-top: 2rem;
+  color:white;
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    text-shadow: 0 0 15px #ff85c2;
+  }
+  50% {
+    transform: scale(1.05);
+    text-shadow: 0 0 25px #ff85c2, 0 0 35px #ff85c2;
+  }
+  100% {
+    transform: scale(1);
+    text-shadow: 0 0 15px #ff85c2;
+  }
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+      <!-- Sidebar Toggle Button -->
+      <button id="sidebarToggle" class="fixed top-5 left-5 bg-pink-500 text-white px-4 py-2 rounded-lg z-50">
+        ☰
+    </button>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <h2 class="text-xl font-bold mb-5">Navigation</h2>
+        <ul class="space-y-3">
+            <li><a href="site4.html">Home</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="cv.pdf">Resume</a></li>
+            <li><a href="education.html">Educational Background</a></li>
+        </ul>
+    </div>
+<h1>Contact Me</h1>
+<div class="contact-icons">
+  <div class="icon-box" id="github-box">
+    <a href="https://github.com/n7khita-r" target="_blank">
+      <div id="github-icon" class="icon-img">
+        <!-- Add your GitHub image here -->
+      </div>
+      <div class="icon-label">GitHub</div>
+    </a>
+    <div class="para-text">@n7khita-r</div>
+  </div>
+  <div class="icon-box" id="linkedin-box">
+    <a href="https://linkedin.com/in/nikhita-anjani-ravi-94907531b?utm_source=share&utm_cam-paign=share_via&utm_content=profile&utm_medium=ios-app" target="_blank">
+      <div id="linkedin-icon" class="icon-img">
+        <!-- Add your LinkedIn image here -->
+      </div>
+      <div class="icon-label">LinkedIn</div>
+    </a>
+    <div class="para-text">Nikhita Anjani Ravi</div>
+  </div>
+  <div class="icon-box" id="instagram-box">
+    <a href="https://instagram.com/nikhitarvi" target="_blank">
+      <div id="instagram-icon" class="icon-img">
+        <!-- Add your Instagram image here -->
+      </div>
+      <div class="icon-label">Instagram</div>
+    </a>
+    <div class="para-text">@nikhitarvi</div>
+  </div>
+  <div class="icon-box" id="email-box">
+    <a href="mailto:youremail@example.com">
+      <div id="email-icon" class="icon-img">
+        <!-- Add your Email image here -->
+      </div>
+      <div class="icon-label">Email</div> </a>
+      <div class="para-text">nikhitaravi1@gmail.com<br>
+        nikhita.ravi@research.iiit.ac.in</div>
+  </div>
+</div>
+
+<script>
+  const sidebar = document.getElementById("sidebar");
+  const toggleButton = document.getElementById("sidebarToggle");
+
+  toggleButton.addEventListener("click", () => {
+      sidebar.classList.toggle("active");
+  });
+</script>
+
+
+<footer>
+  <div class="container">
+    <p>&copy; Made with ♥ by Nikhita (2025)</p>
+  </div>
+</footer>
+
+
+</body>
+</html>
