@@ -270,7 +270,7 @@
     }
 
     .typing-container {
-        font-size: 1.6rem;
+        font-size: 1.05rem;
         width: 100% !important;
     }
 
@@ -293,10 +293,28 @@
         <h2 class="text-xl font-bold mb-5">Navigation</h2>
         <ul class="space-y-3">
             <li><a href="site4.html.html">Home</a></li>
-            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact Me</a></li>
             <li><a href="skills.html">Skills</a></li>
-            <li><a href="cv.pdf">Resume</a></li>
-            <li><a href="education.html">Educational Background</a></li>
+<li>
+  <a href="javascript:void(0);" onclick="downloadResume()">Resume</a>
+  <script>
+    function downloadResume() {
+      fetch('cv.pdf')
+        .then(response => response.blob())
+        .then(blob => {
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = 'resume.pdf';
+          document.body.appendChild(link);
+          link.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(link);
+        })
+        .catch(e => console.error('Download failed:', e));
+    }
+  </script>
+</li>            <li><a href="education.html">Educational Background</a></li>
         </ul>
     </div>
     
@@ -396,11 +414,41 @@ document.addEventListener("mousemove", (e) => {
             <a href="projects.html" class="nav-button">Projects</a>
             <p>A space for my completed and future projects in web development, AI-ML, computational linguistics, NLP and beyond. Stay tuned!</p>
         </div>
-        <div class="nav-box" data-aos="fade-up" data-aos-delay="400">
-            <a href="cv.pdf" class="nav-button">Resume</a>
-            <p>Download my CV to learn more about my education, skills, and experiences.</p>
-        </div>
-        <div class="nav-box" data-aos="fade-up" data-aos-delay="500">
+<div class="nav-box" data-aos="fade-up" data-aos-delay="400">
+    <a href="javascript:void(0);" onclick="downloadCV()" class="nav-button">Resume</a>
+    <p>Download my CV to learn more about my education, skills, and experiences.</p>
+</div>
+
+<script>
+function downloadCV() {
+  fetch('cv.pdf')
+    .then(response => response.blob())
+    .then(blob => {
+      // Create a blob URL for the PDF
+      const url = window.URL.createObjectURL(blob);
+      
+      // Create a temporary link element
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'resume.pdf';
+      
+      // Append to the document, click it, then remove it
+      document.body.appendChild(link);
+      link.click();
+      
+      // Clean up
+      setTimeout(() => {
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(link);
+      }, 100);
+    })
+    .catch(error => {
+      console.error('Download failed:', error);
+      // Optional: Show user-friendly error message
+      alert('Sorry, download failed. Please try again later.');
+    });
+}
+</script>        <div class="nav-box" data-aos="fade-up" data-aos-delay="500">
             <a href="contact.html" class="nav-button">Contact Me</a>
             <p>Reach out to me via e-mail or social media!</p>
         </div>
