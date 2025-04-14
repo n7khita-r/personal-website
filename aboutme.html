@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Grid with Text</title>
+    <!-- Linking Google Fonts for Orbitron and Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Share Tech Mono', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0d0d0d;
+            color: rgb(235, 174, 217);
+        }
+
+        footer {
+      margin-top: 50px;
+      padding: 20px;
+      background-color: rgba(26, 26, 26, 0.5);
+      border-top: 1px solid #ff69b433;
+      color:white;
+      text-align: center;
+    }
+
+        
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            color: #96274e; /* Pink color */
+            font-size: 3rem;
+            text-align: center;
+            margin: 60px 0;
+            letter-spacing: 2px;
+        }
+        
+        .container {
+            padding: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Image Grid Layout */
+        .image-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: nowrap;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        /* Grid Items */
+        .grid-item {
+            background-color: #1a1a1a;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            flex: 1;
+            max-width: 270px;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+        }
+        
+        /* Hover effect for Grid Items */
+        .grid-item:hover {
+            transform: scale(1.05);
+        }
+        
+        .grid-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        
+        /* Text Sections */
+        .text-section {
+            display: flex;
+            margin: 40px 0;
+            align-items: center;
+        }
+        
+        .text-content {
+            flex: 1;
+            padding: 20px;
+            background-color: rgba(26, 26, 26, 0.7);
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Alternating text alignment */
+        .text-section:nth-child(odd) {
+            flex-direction: row;
+        }
+        
+        .text-section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        /* Back Button Styles */
+        .back-button-container {
+            display: flex;
+            justify-content: center;
+            margin: 60px 0 40px;
+        }
+        
+        .back-button {
+            font-family: 'Orbitron', sans-serif;
+            background-color: #96274e;
+            color: rgb(235, 174, 217);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(150, 39, 78, 0.7);
+            text-shadow: 0 0 5px rgba(235, 174, 217, 0.7);
+        }
+        
+        .back-button:hover {
+            background-color: #c12e63;
+            box-shadow: 0 0 25px rgba(150, 39, 78, 0.9);
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive Design for Smaller Screens */
+        @media (max-width: 900px) {
+            .image-grid {
+                flex-wrap: wrap;
+            }
+            
+            .grid-item {
+                max-width: calc(50% - 10px);
+                flex: 0 0 calc(50% - 10px);
+            }
+            
+            .text-section, 
+            .text-section:nth-child(even), 
+            .text-section:nth-child(odd) {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .back-button {
+                padding: 10px 25px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>More About Me</h1>
+        
+        <!-- Image Grid - 4x1 on desktop, 2x2 on mobile -->
+        <div class="image-grid">
+            <!-- Grid Item 1 -->
+            <div class="grid-item">
+                <img src="pic1.jpeg" alt="Image 1">
+            </div>
+            <!-- Grid Item 2 -->
+            <div class="grid-item">
+                <img src="pic2.jpeg" alt="Image 2">
+            </div>
+            <!-- Grid Item 3 -->
+            <div class="grid-item">
+                <img src="pic3.jpeg" alt="Image 3">
+            </div>
+            <!-- Grid Item 4 -->
+            <div class="grid-item">
+                <img src="pic4.jpeg" alt="Image 4">
+            </div>
+        </div>
+        
+        <!-- Alternating text sections -->
+        <div class="text-section">
+            <div class="text-content">
+                <h2>More About Me</h2>
+                <p>Age: 19 <br> Location: Hyderabad, Telangana, India (Current); Bhubaneswar, Odisha, India <br> Languages Known: Hindi, English, Telugu, Marathi, Odia</p>
+            </div>
+        </div>
+        
+    
+        
+        <!-- Back Button -->
+        <div class="back-button-container">
+            <a href="site4.html" class="back-button">Back</a>
+        </div>
+    </div>
+    <script>
+        // Helper function to determine the type of the clicked/viewed element
+        function getObjectType(element) {
+            if (!element) return 'unknown';
+            const tag = element.tagName.toLowerCase();
+    
+            if (tag === 'img') return 'image';
+            if (tag === 'button') return 'button';
+            if (tag === 'a') return 'link';
+            if (tag === 'select') return 'dropdown';
+            if (tag === 'input') return element.type === 'checkbox' ? 'checkbox' : 'input';
+            if (tag === 'textarea') return 'textarea';
+            if (tag === 'p' || tag === 'span' || tag === 'div' || tag === 'h1' || tag === 'h2' || tag === 'h3') return 'text';
+    
+            return tag;
+        }
+    
+        // Log page view on load
+        window.addEventListener('load', () => {
+            const timestamp = new Date().toISOString();
+            console.log(`${timestamp}, view, page`);
+        });
+    
+        // Log clicks on the entire document
+        document.addEventListener('click', (e) => {
+            const timestamp = new Date().toISOString();
+            const objectType = getObjectType(e.target);
+            console.log(`${timestamp}, click, ${objectType}`);
+        });
+    </script>
+    <footer>
+        <div class="container">
+          <p>&copy; Made with ♥ by Nikhita (2025)</p>
+        </div>
+      </footer>
+    
+</body>
+</html>
+

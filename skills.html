@@ -332,26 +332,26 @@
 
   <div class="container">
     <div class="skills-grid">
-      <div class="skill-card">HTML</div>
-      <div class="skill-card">CSS</div>
-      <div class="skill-card">JavaScript</div>
-      <div class="skill-card">Bootstrap</div>
-      <div class="skill-card">Tailwind CSS</div>
-      <div class="skill-card">React</div>
-      <div class="skill-card">Node.js</div>
-      <div class="skill-card">LSTMs and BiLSTMS</div>
-      <div class="skill-card">MongoDB</div>
-      <div class="skill-card">MySQL</div>
-      <div class="skill-card">FastAPI</div>
-      <div class="skill-card">Python</div>
-      <div class="skill-card">Java</div>
-      <div class="skill-card">C</div>
-      <div class="skill-card">C++</div>
-      <div class="skill-card">Git & GitHub</div>
-      <div class="skill-card">REST APIs</div>
-      <div class="skill-card">LaTeX</div>
-      <div class="skill-card">HMMs, CRFs</div>
-      <div class="skill-card">Linux</div>
+      <div class="skill-card">HTML ★★★☆☆</div>
+      <div class="skill-card">CSS ★★☆☆☆</div>
+      <div class="skill-card">JavaScript ★★☆☆☆</div>
+      <div class="skill-card">Bootstrap ★★☆☆☆</div>
+      <div class="skill-card">Tailwind CSS ★★☆☆☆</div>
+      <div class="skill-card">React ★★★☆☆</div>
+      <div class="skill-card">Node.js ★★☆☆☆</div>
+      <div class="skill-card">LSTMs and BiLSTMS ★★★☆☆</div>
+      <div class="skill-card">MongoDB ★★★☆☆</div>
+      <div class="skill-card">MySQL ★★★★☆</div>
+      <div class="skill-card">FastAPI ★★☆☆☆</div>
+      <div class="skill-card">Python ★★★★☆</div>
+      <div class="skill-card">Java ★★★☆☆ </div>
+      <div class="skill-card">C ★★★★★</div>
+      <div class="skill-card">C++ ★★★★☆ </div>
+      <div class="skill-card">Git & GitHub ★★★★☆ </div>
+      <div class="skill-card">REST APIs ★★★☆☆ </div>
+      <div class="skill-card">LaTeX ★★★★★ </div>
+      <div class="skill-card">HMMs, CRFs ★★★★☆ </div>
+      <div class="skill-card">Linux ★★★☆☆  </div>
     </div>
   </div>
 
@@ -445,5 +445,36 @@
         sidebar.classList.toggle("active");
     });
 </script>
+<script>
+    // Helper function to determine the type of the clicked/viewed element
+    function getObjectType(element) {
+        if (!element) return 'unknown';
+        const tag = element.tagName.toLowerCase();
+
+        if (tag === 'img') return 'image';
+        if (tag === 'button') return 'button';
+        if (tag === 'a') return 'link';
+        if (tag === 'select') return 'dropdown';
+        if (tag === 'input') return element.type === 'checkbox' ? 'checkbox' : 'input';
+        if (tag === 'textarea') return 'textarea';
+        if (tag === 'p' || tag === 'span' || tag === 'div' || tag === 'h1' || tag === 'h2' || tag === 'h3') return 'text';
+        
+        return tag;
+    }
+
+    // Log page view on load
+    window.addEventListener('load', () => {
+        const timestamp = new Date().toISOString();
+        console.log(`${timestamp}, view, page`);
+    });
+
+    // Log clicks on the entire document
+    document.addEventListener('click', (e) => {
+        const timestamp = new Date().toISOString();
+        const objectType = getObjectType(e.target);
+        console.log(`${timestamp}, click, ${objectType}`);
+    });
+</script>
+
 </body>
 </html>

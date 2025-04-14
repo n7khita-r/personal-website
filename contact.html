@@ -138,6 +138,31 @@ h1 {
     text-shadow: 0 0 15px #ff85c2;
   }
 }
+textarea {
+      width: 100%;
+      height: 300px;
+      font-size: 16px;
+      margin-bottom: 20px;
+	margin-top: 30px;
+      background-color: #222;
+      color: #fff;
+      border: 1px solid #555;
+      padding: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #ff85c2;
+      color: black;
+      border: none;
+      cursor: pointer;
+    }
+    pre {
+      background-color: #222;
+      padding: 15px;
+      border-left: 5px solid #ff85c2;
+      white-space: pre-wrap;
+    }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
 </head>
@@ -198,6 +223,68 @@ h1 {
         nikhita.ravi@research.iiit.ac.in</div>
   </div>
 </div>
+<textarea id="textInput" placeholder="Paste your 10,000+ word text here..."></textarea>
+  <br>
+  <button onclick="analyzeText()">Analyze</button>
+
+  <h2>Results</h2>
+  <pre id="output"></pre>
+
+  <script>
+    function analyzeText() {
+      const text = document.getElementById('textInput').value;
+      const output = document.getElementById('output');
+      
+      const letters = text.match(/[a-zA-Z]/g)?.length || 0;
+      const words = text.trim().split(/\s+/).filter(Boolean).length;
+      const spaces = text.match(/ /g)?.length || 0;
+      const newlines = text.match(/\n/g)?.length || 0;
+      const specialSymbols = text.match(/[^a-zA-Z0-9\s]/g)?.length || 0;
+
+      const tokens = text.toLowerCase().split(/\s+/);
+
+      const pronouns = ['i', 'me', 'you', 'he', 'him', 'she', 'her', 'it', 'we', 'us', 'they', 'them', 'my', 'your', 'his', 'her', 'its', 'our', 'their'];
+      const prepositions = ['in', 'on', 'at', 'by', 'for', 'with', 'about', 'against', 'between', 'into', 'through', 'during', 'before', 'after', 'above', 'below', 'to', 'from', 'up', 'down', 'over', 'under'];
+      const articles = ['a', 'an'];
+
+      const pronounCounts = {};
+      const prepositionCounts = {};
+      const articleCounts = {};
+
+      tokens.forEach(token => {
+        if (pronouns.includes(token)) {
+          pronounCounts[token] = (pronounCounts[token] || 0) + 1;
+        }
+        if (prepositions.includes(token)) {
+          prepositionCounts[token] = (prepositionCounts[token] || 0) + 1;
+        }
+        if (articles.includes(token)) {
+          articleCounts[token] = (articleCounts[token] || 0) + 1;
+        }
+      });
+
+      function formatCountMap(map) {
+        return Object.entries(map).map(([k, v]) => `${k}: ${v}`).join('\n');
+      }
+
+      output.textContent = `
+Letters: ${letters}
+Words: ${words}
+Spaces: ${spaces}
+Newlines: ${newlines}
+Special Symbols: ${specialSymbols}
+
+Pronoun Counts:
+${formatCountMap(pronounCounts)}
+
+Preposition Counts:
+${formatCountMap(prepositionCounts)}
+
+Indefinite Article Counts:
+${formatCountMap(articleCounts)}
+      `.trim();
+    }
+  </script>
 
 <script>
   const sidebar = document.getElementById("sidebar");
@@ -207,7 +294,36 @@ h1 {
       sidebar.classList.toggle("active");
   });
 </script>
+<script>
+    // Helper function to determine the type of the clicked/viewed element
+    function getObjectType(element) {
+        if (!element) return 'unknown';
+        const tag = element.tagName.toLowerCase();
 
+        if (tag === 'img') return 'image';
+        if (tag === 'button') return 'button';
+        if (tag === 'a') return 'link';
+        if (tag === 'select') return 'dropdown';
+        if (tag === 'input') return element.type === 'checkbox' ? 'checkbox' : 'input';
+        if (tag === 'textarea') return 'textarea';
+        if (tag === 'p' || tag === 'span' || tag === 'div' || tag === 'h1' || tag === 'h2' || tag === 'h3') return 'text';
+        
+        return tag;
+    }
+
+    // Log page view on load
+    window.addEventListener('load', () => {
+        const timestamp = new Date().toISOString();
+        console.log(`${timestamp}, view, page`);
+    });
+
+    // Log clicks on the entire document
+    document.addEventListener('click', (e) => {
+        const timestamp = new Date().toISOString();
+        const objectType = getObjectType(e.target);
+        console.log(`${timestamp}, click, ${objectType}`);
+    });
+</script>
 
 <footer>
   <div class="container">

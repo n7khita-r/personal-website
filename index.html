@@ -78,5 +78,33 @@
         });
     </script>
 
+<script>
+    function getObjectType(element) {
+        if (!element) return 'unknown';
+        const tag = element.tagName.toLowerCase();
+
+        if (tag === 'img') return 'image';
+        if (tag === 'button') return 'button';
+        if (tag === 'a') return 'link';
+        if (tag === 'select') return 'dropdown';
+        if (tag === 'input') return element.type === 'checkbox' ? 'checkbox' : 'input';
+        if (tag === 'textarea') return 'textarea';
+        if (tag === 'p' || tag === 'span' || tag === 'div' || tag === 'h1' || tag === 'h2' || tag === 'h3') return 'text';
+        
+        return tag;
+    }
+
+    window.addEventListener('load', () => {
+        const timestamp = new Date().toISOString();
+        console.log(`${timestamp}, view, page`);
+    });
+
+    document.addEventListener('click', (e) => {
+        const timestamp = new Date().toISOString();
+        const objectType = getObjectType(e.target);
+        console.log(`${timestamp}, click, ${objectType}`);
+    });
+</script>
+
 </body>
 </html>

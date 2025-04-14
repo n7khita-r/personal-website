@@ -262,6 +262,23 @@
       color:white;
       text-align: center;
     }
+
+@media (max-width: 768px) {
+    #about-img {
+        width: 180px;
+        height: 180px;
+    }
+
+    .typing-container {
+        font-size: 1.6rem;
+        width: 100% !important;
+    }
+
+    .text-content p {
+        font-size: 1rem;
+        margin-top: 10px;
+    }
+}
     </style>
 </head>
 <body>
@@ -291,7 +308,7 @@
                 <p>
                     Hello! I am Nikhita, a first-year undergraduate research student at IIIT Hyderabad pursuing a dual degree in Computational Linguistics. I am passionate about artificial intelligence, linguistics, mathematics, frontend development and algorithmic programming. My hobbies include design, video editing, photography and dance. 
                 </p>
-                <a href="#">Read More!</a>
+                <a href="aboutme.html">Read More!</a>
             </div>
             <img src="profile.jpeg" alt="Profile Picture">
         </div>
@@ -329,7 +346,36 @@ document.addEventListener("mousemove", (e) => {
     }, 1000);
 });
 </script>
+<script>
+    // Helper function to determine the type of the clicked/viewed element
+    function getObjectType(element) {
+        if (!element) return 'unknown';
+        const tag = element.tagName.toLowerCase();
 
+        if (tag === 'img') return 'image';
+        if (tag === 'button') return 'button';
+        if (tag === 'a') return 'link';
+        if (tag === 'select') return 'dropdown';
+        if (tag === 'input') return element.type === 'checkbox' ? 'checkbox' : 'input';
+        if (tag === 'textarea') return 'textarea';
+        if (tag === 'p' || tag === 'span' || tag === 'div' || tag === 'h1' || tag === 'h2' || tag === 'h3') return 'text';
+        
+        return tag;
+    }
+
+    // Log page view on load
+    window.addEventListener('load', () => {
+        const timestamp = new Date().toISOString();
+        console.log(`${timestamp}, view, page`);
+    });
+
+    // Log clicks on the entire document
+    document.addEventListener('click', (e) => {
+        const timestamp = new Date().toISOString();
+        const objectType = getObjectType(e.target);
+        console.log(`${timestamp}, click, ${objectType}`);
+    });
+</script>
     <div class="marquee-container" data-aos="fade-down">
         <div class="marquee-content">
             CLICK ON ANY OF THESE TO NAVIGATE FURTHER! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CLICK ON ANY OF THESE TO NAVIGATE FURTHER! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CLICK ON ANY OF THESE TO NAVIGATE FURTHER! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
