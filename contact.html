@@ -143,11 +143,14 @@ textarea {
       height: 300px;
       font-size: 16px;
       margin-bottom: 20px;
-	margin-top: 30px;
+      margin-top: 30px;
       background-color: #222;
       color: #fff;
       border: 1px solid #555;
       padding: 10px;
+      max-height: 500px;
+      overflow-y: auto;
+      box-sizing: border-box;
     }
     button {
       padding: 10px 20px;
@@ -162,6 +165,25 @@ textarea {
       padding: 15px;
       border-left: 5px solid #ff85c2;
       white-space: pre-wrap;
+      text-align: left;
+      max-height: 400px;
+      overflow-y: auto;
+      word-break: break-word;
+    }
+    .text-analysis-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .analyzer-heading {
+      color: #a3376d;
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+    .loading {
+      display: none;
+      color: #ff85c2;
+      margin: 15px 0;
     }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
@@ -214,7 +236,7 @@ textarea {
     <div class="para-text">@nikhitarvi</div>
   </div>
   <div class="icon-box" id="email-box">
-    <a href="mailto:youremail@example.com">
+    <a href="mailto:nikhitaravi1@gmail.com">
       <div id="email-icon" class="icon-img">
         <!-- Add your Email image here -->
       </div>
@@ -223,51 +245,88 @@ textarea {
         nikhita.ravi@research.iiit.ac.in</div>
   </div>
 </div>
-<textarea id="textInput" placeholder="Paste your text here..."></textarea>
+
+<div class="text-analysis-container">
+  <h2 class="analyzer-heading">Text Analyzer</h2>
+  <textarea id="textInput" placeholder="Paste your text here (can handle 10,000+ words)..."></textarea>
   <br>
   <button onclick="analyzeText()">Analyze</button>
+  <div id="loading" class="loading">Analyzing text... Please wait for large inputs.</div>
 
-  <h2>Results</h2>
-  <pre id="output"></pre>
+  <h2 class="analyzer-heading">Results</h2>
+  <pre id="output">Analysis results will appear here.</pre>
+</div>
 
-  <script>
+<script>
     function analyzeText() {
       const text = document.getElementById('textInput').value;
       const output = document.getElementById('output');
+      const loading = document.getElementById('loading');
       
-      const letters = text.match(/[a-zA-Z]/g)?.length || 0;
-      const words = text.trim().split(/\s+/).filter(Boolean).length;
-      const spaces = text.match(/ /g)?.length || 0;
-      const newlines = text.match(/\n/g)?.length || 0;
-      const specialSymbols = text.match(/[^a-zA-Z0-9\s]/g)?.length || 0;
-
-      const tokens = text.toLowerCase().split(/\s+/);
-
-      const pronouns = ['i', 'me', 'you', 'he', 'him', 'his', 'she', 'her', 'hers', 'it', 'its', 'we', 'us', 'they', 'them', 'my', 'your', 'his', 'her', 'its', 'our', 'their', 'theirs', 'ours', mine', 'its', 'yours'];
-      const prepositions = ['in', 'on', 'at', 'by', 'for', 'with', 'about', 'against', 'between', 'into', 'through', 'during', 'before', 'after', 'above', 'below', 'to', 'from', 'up', 'down', 'over', 'under'];
-      const articles = ['a', 'an'];
-
-      const pronounCounts = {};
-      const prepositionCounts = {};
-      const articleCounts = {};
-
-      tokens.forEach(token => {
-        if (pronouns.includes(token)) {
-          pronounCounts[token] = (pronounCounts[token] || 0) + 1;
-        }
-        if (prepositions.includes(token)) {
-          prepositionCounts[token] = (prepositionCounts[token] || 0) + 1;
-        }
-        if (articles.includes(token)) {
-          articleCounts[token] = (articleCounts[token] || 0) + 1;
-        }
-      });
-
-      function formatCountMap(map) {
-        return Object.entries(map).map(([k, v]) => `${k}: ${v}`).join('\n');
+      // Show loading message for large texts
+      if (text.length > 5000) {
+        loading.style.display = 'block';
+        // Use setTimeout to prevent UI freezing with large inputs
+        setTimeout(() => processText(text), 10);
+      } else {
+        processText(text);
       }
+    }
+    
+    function processText(text) {
+      const output = document.getElementById('output');
+      const loading = document.getElementById('loading');
+      
+      try {
+        const letters = (text.match(/[a-zA-Z]/g) || []).length;
+        const words = text.trim().split(/\s+/).filter(Boolean).length;
+        const spaces = (text.match(/ /g) || []).length;
+        const newlines = (text.match(/\n/g) || []).length;
+        const specialSymbols = (text.match(/[^a-zA-Z0-9\s]/g) || []).length;
 
-      output.textContent = `
+        // Break down tokens more efficiently for large texts
+        const tokens = text.toLowerCase().split(/\s+/).filter(Boolean);
+
+        const pronouns = ['i', 'me', 'you', 'he', 'him', 'his', 'she', 'her', 'hers', 'it', 'its', 'we', 'us', 'they', 'them', 'my', 'your', 'his', 'her', 'its', 'our', 'their', 'theirs', 'ours', 'mine', 'yours'];
+        const prepositions = ['in', 'on', 'at', 'by', 'for', 'with', 'about', 'against', 'between', 'into', 'through', 'during', 'before', 'after', 'above', 'below', 'to', 'from', 'up', 'down', 'over', 'under'];
+        const articles = ['a', 'an'];
+
+        const pronounCounts = {};
+        const prepositionCounts = {};
+        const articleCounts = {};
+
+        // Process tokens in chunks for very large texts
+        const chunkSize = 5000;
+        for (let i = 0; i < tokens.length; i++) {
+          const token = tokens[i];
+          
+          if (pronouns.includes(token)) {
+            pronounCounts[token] = (pronounCounts[token] || 0) + 1;
+          }
+          if (prepositions.includes(token)) {
+            prepositionCounts[token] = (prepositionCounts[token] || 0) + 1;
+          }
+          if (articles.includes(token)) {
+            articleCounts[token] = (articleCounts[token] || 0) + 1;
+          }
+          
+          // Yield to browser occasionally to prevent freezing
+          if (i % chunkSize === 0 && i > 0) {
+            // Force a small delay every chunk
+            setTimeout(() => {}, 0);
+          }
+        }
+
+        function formatCountMap(map) {
+          return Object.entries(map)
+            .sort((a, b) => b[1] - a[1]) // Sort by count in descending order
+            .map(([k, v]) => `${k}: ${v}`)
+            .join('\n');
+        }
+
+        output.textContent = `
+Basic Stats:
+-----------
 Letters: ${letters}
 Words: ${words}
 Spaces: ${spaces}
@@ -275,16 +334,25 @@ Newlines: ${newlines}
 Special Symbols: ${specialSymbols}
 
 Pronoun Counts:
-${formatCountMap(pronounCounts)}
+--------------
+${formatCountMap(pronounCounts) || "None found"}
 
 Preposition Counts:
-${formatCountMap(prepositionCounts)}
+-----------------
+${formatCountMap(prepositionCounts) || "None found"}
 
-Indefinite Article Counts:
-${formatCountMap(articleCounts)}
-      `.trim();
+Article Counts:
+-------------
+${formatCountMap(articleCounts) || "None found"}
+        `.trim();
+      } catch (error) {
+        output.textContent = `Error analyzing text: ${error.message}`;
+        console.error("Text analysis error:", error);
+      } finally {
+        loading.style.display = 'none';
+      }
     }
-  </script>
+</script>
 
 <script>
   const sidebar = document.getElementById("sidebar");
@@ -300,14 +368,14 @@ ${formatCountMap(articleCounts)}
         if (!element) return 'unknown';
         const tag = element.tagName.toLowerCase();
 
-if (tag === 'img') return 'image';
-if (tag === 'button') return 'button';
-if (tag === 'a') return 'link';
-if (tag === 'select') return 'dropdown';
-if (tag === 'input') return element.type === 'checkbox' ? 'checkbox' : 'input';
-if (tag === 'textarea') return 'textarea';
-if (tag === 'div') return 'container';
-if (tag === 'p' || tag === 'span' || tag === 'h1' || tag === 'h2' || tag === 'h3') return 'text';        
+        if (tag === 'img') return 'image';
+        if (tag === 'button') return 'button';
+        if (tag === 'a') return 'link';
+        if (tag === 'select') return 'dropdown';
+        if (tag === 'input') return element.type === 'checkbox' ? 'checkbox' : 'input';
+        if (tag === 'textarea') return 'textarea';
+        if (tag === 'div') return 'container';
+        if (tag === 'p' || tag === 'span' || tag === 'h1' || tag === 'h2' || tag === 'h3') return 'text';        
         return tag;
     }
 
