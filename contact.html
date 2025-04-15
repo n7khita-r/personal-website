@@ -243,7 +243,7 @@ textarea {
 
       const tokens = text.toLowerCase().split(/\s+/);
 
-      const pronouns = ['i', 'me', 'you', 'he', 'him', 'she', 'her', 'it', 'we', 'us', 'they', 'them', 'my', 'your', 'his', 'her', 'its', 'our', 'their'];
+      const pronouns = ['i', 'me', 'you', 'he', 'him', 'his', 'she', 'her', 'hers', 'it', 'its', 'we', 'us', 'they', 'them', 'my', 'your', 'his', 'her', 'its', 'our', 'their', 'theirs', 'ours', mine', 'its', 'yours'];
       const prepositions = ['in', 'on', 'at', 'by', 'for', 'with', 'about', 'against', 'between', 'into', 'through', 'during', 'before', 'after', 'above', 'below', 'to', 'from', 'up', 'down', 'over', 'under'];
       const articles = ['a', 'an'];
 
@@ -300,14 +300,14 @@ ${formatCountMap(articleCounts)}
         if (!element) return 'unknown';
         const tag = element.tagName.toLowerCase();
 
-        if (tag === 'img') return 'image';
-        if (tag === 'button') return 'button';
-        if (tag === 'a') return 'link';
-        if (tag === 'select') return 'dropdown';
-        if (tag === 'input') return element.type === 'checkbox' ? 'checkbox' : 'input';
-        if (tag === 'textarea') return 'textarea';
-        if (tag === 'p' || tag === 'span' || tag === 'div' || tag === 'h1' || tag === 'h2' || tag === 'h3') return 'text';
-        
+if (tag === 'img') return 'image';
+if (tag === 'button') return 'button';
+if (tag === 'a') return 'link';
+if (tag === 'select') return 'dropdown';
+if (tag === 'input') return element.type === 'checkbox' ? 'checkbox' : 'input';
+if (tag === 'textarea') return 'textarea';
+if (tag === 'div') return 'container';
+if (tag === 'p' || tag === 'span' || tag === 'h1' || tag === 'h2' || tag === 'h3') return 'text';        
         return tag;
     }
 
